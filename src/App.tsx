@@ -9,8 +9,15 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import CoinCard from "./Components/Cards/CoinCard";
 
 function App() {
+  const coinType = {
+    name: String,
+    value: Number,
+    image: String,
+  };
+
   return (
     <div className="App">
       <Flex minWidth="max-content" alignItems="center" gap="2">
@@ -32,13 +39,24 @@ function App() {
 
           <TabPanels>
             <TabPanel>
-              
+              <Box>
+                <Flex direction="row" alignItems="center" justify="flex-start">
+                  <CoinCard />
+                  <Spacer />
+                  <CoinCard />
+                  <Spacer />
+                </Flex>
+              </Box>
             </TabPanel>
             <TabPanel>
               <p>two!</p>
             </TabPanel>
           </TabPanels>
         </Tabs>
+
+        <Box>
+          <h2>Login to view past Investments</h2>
+        </Box>
       </div>
     </div>
   );
