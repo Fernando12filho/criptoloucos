@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import {
   Box,
@@ -10,13 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import CoinCard from "./Components/Cards/CoinCard";
+import { useState } from "react";
 
 function App() {
-  const coinType = {
-    name: String,
-    value: Number,
-    image: String,
-  };
+
+  const [btc, setBtc] = useState({name: String, price: Number});
+  const [eth, setEth] = useState({name: String, price: Number});
 
   return (
     <div className="App">
@@ -41,9 +39,9 @@ function App() {
             <TabPanel>
               <Box>
                 <Flex direction="row" alignItems="center" justify="flex-start">
-                  <CoinCard />
+                  <CoinCard coinName="bitcoin" coinPrice={10000}/>
                   <Spacer />
-                  <CoinCard />
+                  <CoinCard coinName="ethereum" coinPrice={4000}/>
                   <Spacer />
                 </Flex>
               </Box>

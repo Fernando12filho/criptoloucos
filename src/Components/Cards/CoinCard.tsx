@@ -2,8 +2,12 @@ import { Card, CardBody, CardFooter, Stack, Heading, Text, Image, Divider,
     ButtonGroup, Button
  } from '@chakra-ui/react'
 
+interface ChildProps {
+  coinName: String;
+  coinPrice: Number;
+}
 
-function CoinCard(props: Object) {
+function CoinCard({coinName, coinPrice}: ChildProps) {
   return (
     <Card maxW="sm">
       <CardBody>
@@ -13,14 +17,14 @@ function CoinCard(props: Object) {
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-          <Heading size="md">Living room Sofa</Heading>
+          <Heading size="md">{coinName}</Heading>
           <Text>
             This sofa is perfect for modern tropical spaces, baroque inspired
             spaces, earthy toned spaces and for people who love a chic design
             with a sprinkle of vintage design.
           </Text>
           <Text color="blue.600" fontSize="2xl">
-            $450
+            ${coinPrice.toString()}
           </Text>
         </Stack>
       </CardBody>
