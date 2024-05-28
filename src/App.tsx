@@ -9,12 +9,37 @@ import {
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import CoinCard from "./Components/Cards/CoinCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import btcImage from "../src/Images/bitcoin-btc-logo.png";
+import ethImage from "./Images/ethereum.png";
 
 function App() {
+  const [btc, setBtc] = useState(0);
+  const [eth, setEth] = useState(0);
 
-  const [btc, setBtc] = useState({name: String, price: Number});
-  const [eth, setEth] = useState({name: String, price: Number});
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "X-API-KEY": "X3iSVC60vq6fGV2FOZ6Nz42T//VbM7gMQMIXxZzWsNk=",
+      },
+    };
+    
+    fetch("https://openapiv1.coinstats.app/coins/bitcoin?currency=BRL", options)
+      .then((response) => response.json())
+      .then((response) => setBtc(response.price))
+      .catch((err) => console.error(err));
+
+    fetch(
+      "https://openapiv1.coinstats.app/coins/ethereum?currency=BRL",
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => setEth(response.price))
+      .catch((err) => console.error(err));
+  });
 
   return (
     <div className="App">
@@ -38,11 +63,22 @@ function App() {
           <TabPanels>
             <TabPanel>
               <Box>
-                <Flex direction="row" alignItems="center" justify="flex-start">
-                  <CoinCard coinName="bitcoin" coinPrice={10000}/>
-                  <Spacer />
-                  <CoinCard coinName="ethereum" coinPrice={4000}/>
-                  <Spacer />
+                <Flex direction="row" justify="flex-start" align="center">
+                  <Box p="20px">
+                    <CoinCard
+                      coinName="Bitcoin"
+                      coinPrice={btc}
+                      coinImage={btcImage}
+                    />
+                  </Box>
+
+                  <Box>
+                    <CoinCard
+                      coinName="Ethereum"
+                      coinPrice={eth}
+                      coinImage={ethImage}
+                    />
+                  </Box>
                 </Flex>
               </Box>
             </TabPanel>

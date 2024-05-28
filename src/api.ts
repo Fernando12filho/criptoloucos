@@ -1,8 +1,9 @@
 // src/api.ts
-import axios from 'axios';
+import sdk from '@api/coinstatsopenapi'
 
-const api = axios.create({
-  baseURL: 'https://api.coingecko.com/api/v3', // Example API endpoint
+const api = sdk.getCoins({
+  currency: "BRL",
+  blockchain: "bitcoin"
 });
 
 export default api;
