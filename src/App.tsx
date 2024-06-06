@@ -12,11 +12,14 @@ import CoinCard from "./Components/Cards/CoinCard";
 import { useEffect, useState } from "react";
 import btcImage from "../src/Images/bitcoin-btc-logo.png";
 import ethImage from "./Images/ethereum.png";
+import axios from "axios";
 
 function App() {
   const [btc, setBtc] = useState(0);
   const [eth, setEth] = useState(0);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const options = {
@@ -26,7 +29,7 @@ function App() {
         "X-API-KEY": "X3iSVC60vq6fGV2FOZ6Nz42T//VbM7gMQMIXxZzWsNk=",
       },
     };
-    
+
     fetch("https://openapiv1.coinstats.app/coins/bitcoin?currency=BRL", options)
       .then((response) => response.json())
       .then((response) => setBtc(response.price))
@@ -40,6 +43,17 @@ function App() {
       .then((response) => setEth(response.price))
       .catch((err) => console.error(err));
   });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/")
+      .then((response) => {
+        console.log("estou no backend");
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the items!", error);
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -88,8 +102,12 @@ function App() {
           </TabPanels>
         </Tabs>
 
-        <Box>
-          <h2>Login to view past Investments</h2>
+        <Box p="20px">
+          {isLoggedIn ? (
+            <h2>logado</h2>
+          ) : (
+            <h2>Login to view past Investments</h2>
+          )}
         </Box>
       </div>
     </div>
