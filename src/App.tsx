@@ -13,13 +13,18 @@ import { useEffect, useState } from "react";
 import btcImage from "../src/Images/bitcoin-btc-logo.png";
 import ethImage from "./Images/ethereum.png";
 import axios from "axios";
+import Investments from "./Components/Investments/Investments";
 
 function App() {
+  //variables to set bitcoin price
   const [btc, setBtc] = useState(0);
   const [eth, setEth] = useState(0);
 
+  //Const that will be used to set login state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [items, setItems] = useState([]);
+
+  //Will be used to set amount of cryptocurrencies bought and sold
+  //const [items, setItems] = useState([]);
 
   useEffect(() => {
     const options = {
@@ -44,6 +49,7 @@ function App() {
       .catch((err) => console.error(err));
   });
 
+  //Access backend, but has not ultitliy yet
   useEffect(() => {
     axios
       .get("http://localhost:3001/")
@@ -97,18 +103,17 @@ function App() {
               </Box>
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <Investments />
+              <Box p="20px">
+                {isLoggedIn ? (
+                  <h2>logado</h2>
+                ) : (
+                  <h2>Login to view past Investments</h2>
+                )}
+              </Box>
             </TabPanel>
           </TabPanels>
         </Tabs>
-
-        <Box p="20px">
-          {isLoggedIn ? (
-            <h2>logado</h2>
-          ) : (
-            <h2>Login to view past Investments</h2>
-          )}
-        </Box>
       </div>
     </div>
   );
